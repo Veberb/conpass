@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const subscriptionSchema = new mongoose.Schema(
+const invoiceSchema = new mongoose.Schema(
 	{
 		subscription: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -28,4 +28,4 @@ const subscriptionSchema = new mongoose.Schema(
 	}
 );
 
-module.exports = mongoose.model('Subscription', subscriptionSchema);
+module.exports = mongoose.model('Invoice', invoiceSchema);
