@@ -26,9 +26,33 @@ exports.update = async ({ id, name, description, company }) => {
 };
 
 exports.get = async ({ id }) => {
-	return RoleModel.findById(id);
+	const role = await RoleModel.findById(id);
+	if (!role) throw Boom.notFound('Role não encontrada');
+
+	return role;
 };
 
 exports.delete = async ({ id }) => {
 	return RoleModel.findByIdAndDelete(id);
+};
+
+exports.list = async ({
+	name,
+	company,
+	page = 1,
+	limit = 10,
+	order = '-createdAt'
+}) => {
+	const query = {};
+
+	if (name) query.name = { $regex: name, $options: 'i' };
+	if (company) query.company = company;
+	const [items, total] = await Promise.all([
+		RoleModel.find(query)
+			.limit(limit)
+			.skip((page - 1) * limit)
+			.sort(order),
+		RoleModel.countDocuments(query)
+	]);
+	return { total, items };
 };
