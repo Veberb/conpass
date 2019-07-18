@@ -33,7 +33,10 @@ exports.update = async ({ id, name, email, company, password }) => {
 };
 
 exports.get = async ({ id }) => {
-	return UserModel.findById(id);
+	const user = await UserModel.findById(id);
+	if (!user) throw Boom.notFound('User não encontrado');
+
+	return user;
 };
 
 exports.delete = async ({ id }) => {
@@ -51,4 +54,27 @@ exports.delete = async ({ id }) => {
 		);
 
 	return UserModel.findOneAndDelete(id);
+};
+
+exports.list = async ({
+	name,
+	company,
+	email,
+	page = 1,
+	limit = 10,
+	order = '-createdAt'
+}) => {
+	const query = {};
+
+	if (name) query.name = { $regex: name, $options: 'i' };
+	if (email) query.email = { $regex: email, $options: 'i' };
+	if (company) query.company = company;
+	const [items, total] = await Promise.all([
+		UserModel.find(query)
+			.limit(limit)
+			.skip((page - 1) * limit)
+			.sort(order),
+		UserModel.countDocuments(query)
+	]);
+	return { total, items };
 };
