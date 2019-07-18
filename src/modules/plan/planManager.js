@@ -10,23 +10,23 @@ exports.create = async ({ plans }) => {
 };
 
 exports.get = async ({ id }) => {
-	return PlanModel.findById(id);
+	const plan = await PlanModel.findById(id);
+	if (!plan) throw Boom.notFound('Plano não encontrado');
+
+	return plan;
 };
 
-exports.list = async ({
-	searchCriteria,
-	page = 1,
-	limit = 10,
-	order = '-createdAt'
-}) => {
+exports.list = async ({ name, page = 1, limit = 10, order = '-createdAt' }) => {
 	const query = {};
 
-	if (searchCriteria) query.name = { $regex: searchCriteria, $options: 'i' };
+	if (name) query.name = { $regex: name, $options: 'i' };
 	const [items, total] = await Promise.all([
 		PlanModel.find(query)
 			.limit(limit)
-			.skip((page - 1) * limit),
-		PlanModel.countDocuments()
+			.skip((page - 1) * limit)
+			.sort(order),
+		,
+		PlanModel.countDocuments(query)
 	]);
 	return { total, items };
 };
