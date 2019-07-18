@@ -13,7 +13,7 @@ router.post('/', (req, res, next) => {
 		.catch(next);
 });
 
-router.put('/:id/', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
 	companyManager
 		.update({ ...req.body, id: req.params.id })
 		.then(result => res.json(result))
