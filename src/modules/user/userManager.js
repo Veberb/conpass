@@ -35,3 +35,21 @@ exports.update = async ({ id, name, email, company, password }) => {
 exports.get = async ({ id }) => {
 	return UserModel.findById(id);
 };
+
+exports.delete = async ({ id }) => {
+	const user = await UserModel.findById(id).populate('company');
+	// console.log(typeof user._id); veerificar pq ele retorna um object
+	// console.log(typeof user.company.owner);
+	if (
+		user &&
+		user.company &&
+		user._id.toString() === user.company.owner.toString()
+	)
+		throw Boom.badRequest(
+			`Não foi possível deletar, o ${user.name} é dono da empresa ${
+				user.company.name
+			}`
+		);
+
+	return UserModel.findOneAndDelete(id);
+};
