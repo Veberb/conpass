@@ -1,5 +1,5 @@
 const jsonWebToken = require('jsonwebtoken');
-const { jwt } = require('../src/config');
+const { jwt } = require('../config');
 
 function verifyToken(req, res, next) {
 	const token = req.headers['conpass-token'];
