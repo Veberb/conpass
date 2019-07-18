@@ -25,7 +25,7 @@ exports.update = async ({ id, name, email, company, password }) => {
 	}
 	if (company) {
 		if (!ObjectID.isValid(company))
-			throw Boom.badData('Ownder não é um objectId');
+			throw Boom.badData('Owner não é um objectId');
 		$set.company = company;
 	}
 
@@ -39,7 +39,6 @@ exports.get = async ({ id }) => {
 exports.delete = async ({ id }) => {
 	const user = await UserModel.findById(id).populate('company');
 	// console.log(typeof user._id); veerificar pq ele retorna um object
-	// console.log(typeof user.company.owner);
 	if (
 		user &&
 		user.company &&
