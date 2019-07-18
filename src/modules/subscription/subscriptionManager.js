@@ -8,3 +8,7 @@ exports.create = async ({ planId, company }) => {
 	});
 	return subscription.save();
 };
+
+exports.get = async ({ id }) => {
+	return SubscriptionModal.findById(id);
+};

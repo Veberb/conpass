@@ -8,3 +8,7 @@ exports.create = async ({ plans }) => {
 
 	return PlanModel.insertMany(plans);
 };
+
+exports.get = async ({ id }) => {
+	return PlanModel.findById(id);
+};

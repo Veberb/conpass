@@ -44,3 +44,7 @@ exports.update = async ({ id, type, innerText, company }) => {
 
 	return StepModel.findByIdAndUpdate(id, { $set }, { new: true });
 };
+
+exports.get = async ({ id }) => {
+	return StepModel.findById(id);
+};
