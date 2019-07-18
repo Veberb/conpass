@@ -1,5 +1,5 @@
 const Boom = require('boom');
-const StepModel = require('./stepModel');
+const { StepModel, stepTypes } = require('./stepModel');
 const ObjectID = require('mongodb').ObjectID;
 
 exports.create = async ({ type, innerText, company, flow }) => {
@@ -19,10 +19,28 @@ exports.create = async ({ type, innerText, company, flow }) => {
 	}).lean();
 
 	if (lastStep) {
-		StepModel.findByIdAndUpdate(lastStep._id, {
-			$set: { nextStep: step._id }
-		});
+		StepModel.findByIdAndUpdate(
+			{ id: lastStep._id },
+			{
+				$set: { nextStep: step._id }
+			}
+		);
 	}
 
 	return step;
+};
+
+exports.update = async ({ id, type, innerText, company }) => {
+	const $set = {};
+
+	if (type && stepTypes.includes(type)) $set.type = type;
+	if (innerText) $set.innerText = innerText;
+
+	if (company) {
+		if (!ObjectID.isValid(company))
+			throw Boom.badData('Company não é um objectId válido');
+		$set.company = company;
+	}
+
+	return StepModel.findByIdAndUpdate(id, { $set }, { new: true });
 };

@@ -12,3 +12,10 @@ router.post('/', (req, res, next) => {
 		.then(result => res.json(result))
 		.catch(next);
 });
+
+router.put('/:id', (req, res, next) => {
+	stepManager
+		.update({ ...req.body, id: req.params.id })
+		.then(result => res.json(result))
+		.catch(next);
+});

@@ -18,6 +18,6 @@ module.exports = class Enum {
 	}
 
 	includes(value) {
-		return this.list().includes(value);
+		return this.list().includes(value.toUpperCase());
 	}
 };
