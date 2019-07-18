@@ -30,5 +30,5 @@ exports.get = async ({ id }) => {
 };
 
 exports.delete = async ({ id }) => {
-	return RoleModel.findOneAndDelete(id);
+	return RoleModel.findByIdAndDelete(id);
 };

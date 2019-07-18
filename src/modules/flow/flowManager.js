@@ -20,13 +20,13 @@ exports.update = async ({ id, name, description, company, startStep }) => {
 	if (description) $set.description = description;
 	if (startStep) {
 		if (!ObjectID.isValid(startStep))
-			throw Boom.badData('StartStep não é um objectId');
+			throw Boom.badData('StartStep não é um objectId válido');
 		$set.startStep = startStep;
 	}
 
 	if (company) {
 		if (!ObjectID.isValid(company))
-			throw Boom.badData('Company não é um objectId');
+			throw Boom.badData('Company não é um objectId válido');
 		$set.company = company;
 	}
 
@@ -38,5 +38,5 @@ exports.get = async ({ id }) => {
 };
 
 exports.delete = async ({ id }) => {
-	return FlowModel.findOneAndDelete(id);
+	return FlowModel.findByIdAndDelete(id);
 };
