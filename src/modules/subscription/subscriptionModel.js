@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Enum = require('../../util/enum/Enum');
+const moment = require('moment');
 
 exports.subscriptionStatus = new Enum([
 	'TRIAL',
@@ -23,7 +24,12 @@ const subscriptionSchema = new mongoose.Schema(
 		},
 		status: {
 			type: String,
-			enum: this.subscriptionStatus.list()
+			enum: this.subscriptionStatus.list(),
+			default: this.subscriptionStatus.TRIAL
+		},
+		dueDate: {
+			type: Number,
+			default: moment().add(7, 'days')
 		},
 		enabled: {
 			type: Boolean,

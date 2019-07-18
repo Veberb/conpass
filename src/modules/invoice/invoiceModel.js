@@ -13,7 +13,7 @@ const invoiceSchema = new mongoose.Schema(
 			default: true
 		},
 		dueDate: {
-			type: Boolean
+			type: Number
 		},
 		paidDate: {
 			type: Number
