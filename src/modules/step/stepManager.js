@@ -46,5 +46,29 @@ exports.update = async ({ id, type, innerText, company }) => {
 };
 
 exports.get = async ({ id }) => {
-	return StepModel.findById(id);
+	const step = await StepModel.findById(id);
+	if (!step) throw Boom.notFound('Step não encontrado');
+
+	return step;
+};
+
+exports.list = async ({
+	flow,
+	company,
+	page = 1,
+	limit = 10,
+	order = '-createdAt'
+}) => {
+	const query = {};
+
+	if (company) query.company = company;
+	if (flow) query.flow = flow;
+	const [items, total] = await Promise.all([
+		StepModel.find(query)
+			.limit(limit)
+			.skip((page - 1) * limit)
+			.sort(order),
+		StepModel.countDocuments(query)
+	]);
+	return { total, items };
 };
