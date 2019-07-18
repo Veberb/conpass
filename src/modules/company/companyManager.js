@@ -32,5 +32,29 @@ exports.update = async ({ id, name, description, owner }) => {
 };
 
 exports.get = async ({ id }) => {
-	return CompanyModel.findById(id);
+	const company = await CompanyModel.findById(id);
+	if (!company) throw Boom.notFound('Company não encontrada');
+
+	return company;
+};
+
+exports.list = async ({
+	name,
+	owner,
+	page = 1,
+	limit = 10,
+	order = '-createdAt'
+}) => {
+	const query = {};
+
+	if (name) query.name = { $regex: name, $options: 'i' };
+	if (owner) query.owner = owner;
+	const [items, total] = await Promise.all([
+		CompanyModel.find(query)
+			.limit(limit)
+			.skip((page - 1) * limit)
+			.sort(order),
+		CompanyModel.countDocuments(query)
+	]);
+	return { total, items };
 };
