@@ -78,3 +78,16 @@ exports.list = async ({
 	]);
 	return { total, items };
 };
+
+exports.login = async ({ email, password }) => {
+	if (!email) throw Boom.badData('É preciso informar o email');
+	if (!password) throw Boom.badData('É preciso informar a senha');
+
+	const user = await UserModel.findOne({ email });
+
+	if (!user) throw Boom.badRequest('User não encontrado');
+	const confirmedPassword = await bcrypt.compare(password, user.password);
+
+	if (!confirmedPassword) throw Boom.badRequest('Senha inválida');
+	return user;
+};

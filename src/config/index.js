@@ -21,7 +21,13 @@ const DEFAULT_ENV_CONFIG = {
 	production,
 
 	// app path
-	path: path.normalize(`${__dirname}/..`)
+	path: path.normalize(`${__dirname}/..`),
+
+	//jwt
+	jwt: {
+		secret: 'lucas:)',
+		expiresIn: 86400
+	}
 };
 
 module.exports = _.merge({}, DEFAULT_ENV_CONFIG);
