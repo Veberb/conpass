@@ -21,6 +21,7 @@ const stepSchema = new mongoose.Schema(
 		flow: {
 			type: mongoose.Schema.Types.ObjectId,
 			index: true,
+			required: true,
 			ref: 'Flow'
 		},
 		nextStep: {
@@ -31,7 +32,7 @@ const stepSchema = new mongoose.Schema(
 		type: {
 			type: String,
 			enum: this.stepTypes.list(),
-			default: this.stepTypes.ACTIVE
+			default: this.stepTypes.POPOVER
 		},
 		enabled: {
 			type: Boolean,
