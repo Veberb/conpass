@@ -13,9 +13,9 @@ router.post('/', (req, res, next) => {
 		.catch(next);
 });
 
-router.post('/:id', (req, res, next) => {
+router.put('/:id/', (req, res, next) => {
 	companyManager
-		.update(req.body)
+		.update({ ...req.body, id: req.params.id })
 		.then(result => res.json(result))
 		.catch(next);
 });
