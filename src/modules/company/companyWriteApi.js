@@ -12,3 +12,10 @@ router.post('/', (req, res, next) => {
 		.then(result => res.json(result))
 		.catch(next);
 });
+
+router.post('/:id', (req, res, next) => {
+	companyManager
+		.update(req.body)
+		.then(result => res.json(result))
+		.catch(next);
+});

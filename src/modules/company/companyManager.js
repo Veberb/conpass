@@ -30,3 +30,7 @@ exports.update = async ({ id, name, description, owner }) => {
 
 	return CompanyModel.findByIdAndUpdate(id, { $set }, { new: true });
 };
+
+exports.get = async ({ id }) => {
+	return CompanyModel.findById(id);
+};
