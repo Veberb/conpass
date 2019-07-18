@@ -24,5 +24,6 @@ const flowSchema = new mongoose.Schema(
 		timestamps: true
 	}
 );
+flowSchema.index({ name: 1, company: 1 }, { unique: true });
 
 module.exports = mongoose.model('Flow', flowSchema);

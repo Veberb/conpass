@@ -34,9 +34,33 @@ exports.update = async ({ id, name, description, company, startStep }) => {
 };
 
 exports.get = async ({ id }) => {
-	return FlowModel.findById(id);
+	const flow = await FlowModel.findById(id);
+	if (!flow) throw Boom.notFound('Flow não encontrado');
+
+	return flow;
 };
 
 exports.delete = async ({ id }) => {
 	return FlowModel.findByIdAndDelete(id);
+};
+
+exports.list = async ({
+	name,
+	company,
+	page = 1,
+	limit = 10,
+	order = '-createdAt'
+}) => {
+	const query = {};
+
+	if (name) query.name = { $regex: name, $options: 'i' };
+	if (company) query.company = company;
+	const [items, total] = await Promise.all([
+		FlowModel.find(query)
+			.limit(limit)
+			.skip((page - 1) * limit)
+			.sort(order),
+		FlowModel.countDocuments(query)
+	]);
+	return { total, items };
 };
