@@ -20,7 +20,7 @@
 
 - ## Testes:
 
-  - O projeto conta com alguns testes. Na raiz do projeto, basta executar o comento `npm test`.
+  - O projeto conta com alguns testes. Na raiz do projeto, após instalar as dependências, basta executar o comento `npm test`.
 
 * ## Rodando o projeto
 
