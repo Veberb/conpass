@@ -8,13 +8,6 @@ const invoiceSchema = new mongoose.Schema(
 			index: true,
 			ref: 'Subscription'
 		},
-		value: {
-			type: Boolean,
-			default: true
-		},
-		dueDate: {
-			type: Number
-		},
 		paidDate: {
 			type: Number
 		},
