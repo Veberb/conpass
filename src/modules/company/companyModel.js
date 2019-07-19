@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 //Não vou deixar owner como required pois não seria possivel iniciar o sistema
 const companySchema = new mongoose.Schema(
 	{
-		name: { type: String, required: true },
+		name: { type: String, unique: true, required: true },
 		description: { type: String, required: true },
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
