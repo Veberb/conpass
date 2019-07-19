@@ -41,4 +41,4 @@ const subscriptionSchema = new mongoose.Schema(
 	}
 );
 
-module.exports = mongoose.model('Subscription', subscriptionSchema);
+exports.SubscriptionModal = mongoose.model('Subscription', subscriptionSchema);

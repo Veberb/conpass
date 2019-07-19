@@ -1,5 +1,5 @@
 const Boom = require('boom');
-const SubscriptionModal = require('./subscriptionModel');
+const { SubscriptionModal, subscriptionStatus } = require('./subscriptionModel');
 
 exports.create = async ({ planId, company }) => {
 	const subscription = new SubscriptionModal({
@@ -7,6 +7,16 @@ exports.create = async ({ planId, company }) => {
 		plan: planId
 	});
 	return subscription.save();
+};
+
+
+exports.update = async ({ id, status, dueDate }) => {
+	const $set = {};
+
+	if (status && subscriptionStatus.includes(status)) $set.status = status;
+	if (dueDate) $set.dueDate = dueDate;
+
+	return SubscriptionModal.findByIdAndUpdate(id, { $set }, { new: true });
 };
 
 exports.get = async ({ id }) => {
