@@ -14,14 +14,12 @@ const stepSchema = new mongoose.Schema(
 		innerText: { type: String, required: true },
 		company: {
 			type: mongoose.Schema.Types.ObjectId,
-			required: true,
 			index: true,
 			ref: 'Company'
 		},
 		flow: {
 			type: mongoose.Schema.Types.ObjectId,
 			index: true,
-			required: true,
 			ref: 'Flow'
 		},
 		nextStep: {

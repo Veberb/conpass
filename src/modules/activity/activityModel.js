@@ -12,7 +12,6 @@ exports.activityType = new Enum([
 
 const activitySchema = new mongoose.Schema(
 	{
-		//owner adicionar
 		flow: {
 			type: mongoose.Schema.Types.ObjectId,
 			index: true,

@@ -3,12 +3,9 @@ const { ActivityModel, activityType } = require('./activityModel');
 const ObjectID = require('mongodb').ObjectID;
 
 exports.create = async ({ type, flow, step, owner }) => {
-	console.log(flow);
-	if (!ObjectID.isValid(flow))
-		throw Boom.badRequest('É necessário informar id válido do Flow');
 
-	if (!ObjectID.isValid(step))
-		throw Boom.badRequest('É necessário informar id válido do Step');
+	if (!flow && !step)
+		throw Boom.badRequest('É necessário informar id do Step ou do Flow');
 
 	const activity = new ActivityModel({ type, flow, step, owner });
 	return activity.save();
