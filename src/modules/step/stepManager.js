@@ -12,18 +12,20 @@ exports.create = async ({ type, innerText, company, flow }) => {
 	const step = new StepModel({ type, innerText, company, flow });
 	await step.save();
 
-	//Verificar pq não está atualizando o nextStep
 	const lastStep = await StepModel.findOne({
 		_id: { $ne: step._id },
-		nextStep: { $eq: null }
+		nextStep: { $eq: null },
+		flow: { $eq: flow },
+		company: { $eq: company }
 	}).lean();
 
 	if (lastStep) {
-		StepModel.findByIdAndUpdate(
-			{ id: lastStep._id },
+		await StepModel.findByIdAndUpdate(
+			lastStep._id,
 			{
 				$set: { nextStep: step._id }
-			}
+			},
+			{ new: true }
 		);
 	}
 

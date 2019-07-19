@@ -23,4 +23,4 @@ const trackSchema = new mongoose.Schema(
 	}
 );
 
-module.exports = mongoose.model('Track', trackSchema);
+exports.TrackModel = mongoose.model('Track', trackSchema);
