@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const glob = require('glob');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 const config = require('./config');
 const app = express();
 
@@ -25,20 +24,10 @@ async function start() {
 	app.use(express.json({ limit: '25mb', type: 'application/json' }));
 
 	// Connect to MongoDB
-	if (process.env.NODE_ENV === 'test') {
-		const mongoServer = new MongoMemoryServer();
-		mongoServer.getConnectionString().then(mongoUri => {
-			mongoose.connect(mongoUri, {
-				config: { autoIndex: true },
-				useNewUrlParser: true
-			});
-		});
-	} else {
-		mongoose.connect(config.db, {
-			config: { autoIndex: true },
-			useNewUrlParser: true
-		});
-	}
+	mongoose.connect(config.db, {
+		config: { autoIndex: true },
+		useNewUrlParser: true
+	});
 
 	const db = mongoose.connection;
 	db.on('error', () => {
