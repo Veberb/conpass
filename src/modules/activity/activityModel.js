@@ -22,6 +22,11 @@ const activitySchema = new mongoose.Schema(
 			index: true,
 			ref: 'Step'
 		},
+		owner: {
+			type: mongoose.Schema.Types.ObjectId,
+			index: true,
+			ref: 'Viewer'
+		},
 		type: {
 			type: String,
 			enum: this.activityType.list(),

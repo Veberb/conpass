@@ -3,8 +3,8 @@ const uuidv1 = require('uuid');
 
 const viewerSchema = new mongoose.Schema(
 	{
-		client: { type: String, required: true },
-		uuid: { type: String, required: true },
+		client: { type: String, unique: true },
+		uuid: { type: String },
 		customFields: [String],
 		enabled: {
 			type: Boolean,
