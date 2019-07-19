@@ -1,7 +1,7 @@
 const MongoMemory = require('mongodb-memory-server').default;
 const mongoose = require('mongoose');
 const { expect } = require('chai');
-const planManager = require('../../src/modules/plan/planManager');
+const planManager = require('../src/modules/plan/planManager');
 
 let mongod;
 
