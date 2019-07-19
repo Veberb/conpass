@@ -14,11 +14,12 @@ exports.create = async ({ name, email, company, password }) => {
 	return user.save();
 };
 
-exports.update = async ({ id, name, email, company, password }) => {
+exports.update = async ({ id, name, email, company, password, role }) => {
 	const $set = {};
 
 	if (name) $set.name = name;
 	if (email) $set.email = email;
+	if (role) $set.role = role;
 	if (password) {
 		const hash = await bcrypt.hash(password, saltRounds);
 		$set.password = hash;

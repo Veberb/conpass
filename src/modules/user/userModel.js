@@ -14,7 +14,8 @@ const userSchema = new mongoose.Schema(
 		enabled: {
 			type: Boolean,
 			default: true
-		}
+		},
+		role: [mongoose.Schema.Types.ObjectId]
 	},
 	{
 		timestamps: true
