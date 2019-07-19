@@ -15,13 +15,11 @@ const activitySchema = new mongoose.Schema(
 		flow: {
 			type: mongoose.Schema.Types.ObjectId,
 			index: true,
-			required: true,
 			ref: 'Flow'
 		},
 		step: {
 			type: mongoose.Schema.Types.ObjectId,
 			index: true,
-			required: true,
 			ref: 'Step'
 		},
 		type: {
