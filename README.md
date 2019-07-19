@@ -16,7 +16,7 @@
 
 - ## Postman:
 
-  - Caso queira, é possível fazer o [download](Conpass.postman_collection.json) do json para importar os exemplos de request no Postman.
+  - Caso queira, é possível fazer o [download](/postman/Conpass.postman_collection.json) do json para importar os exemplos de request no Postman.
 
 - ## Testes:
 
@@ -32,4 +32,4 @@
   - O teste pedia para deixar como required owner na company e company no user. Com isso, não seria possível iniciar os cadastros, então optei por não deixar owner, na entidade company, como required. 
   - Como os planos são pré-cadastrados, rodar o post que existe no postman para criá-los.
   - A subscription, criada após a empresa, tem como default o status `Trial` e seu vencimento para uma semana após seu cadastrado.
-  - Foi implementado o `JWT` no projeto porém não foi adicionado seu middleware nas rotas de Api's por não saber os níveis de acesso. Caso queira, existe um exemplo do request no [arquivo para importar no postman](Conpass.postman_collection.json) e seu [middleware](src/middleware/verifyToken.js).
+  - Foi implementado o `JWT` no projeto porém não foi adicionado seu middleware nas rotas de Api's por não saber os níveis de acesso. Caso queira, existe um exemplo do request no [arquivo para importar no postman](/postman/Conpass.postman_collection.json) e seu [middleware](src/middleware/verifyToken.js).
