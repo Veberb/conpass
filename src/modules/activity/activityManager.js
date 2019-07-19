@@ -11,11 +11,10 @@ exports.create = async ({ type, flow, step, owner }) => {
 	return activity.save();
 };
 
-exports.update = async ({ id, paidDate, type, step, owner }) => {
+exports.update = async ({ id, type, step, owner }) => {
 	const $set = {};
 
 	if (type && activityType.includes(type)) $set.type = type;
-	if (paidDate) $set.paidDate = paidDate;
 	if (step) {
 		if (!ObjectID.isValid(step))
 			throw Boom.badData('Step não é um objectId válido');
